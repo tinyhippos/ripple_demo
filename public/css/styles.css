@@ -53,6 +53,10 @@
         padding: 0;
     }
 
+	label {
+		margin-right: 1em;
+	}
+
     input:hover, .textarea:hover, .select:hover, button:hover {
         color: #777777;
         background: #F0F0F0;
@@ -235,7 +239,7 @@
 	}
 
 		
-	/************** Wizard CSS **************/
+/* -------------------------- Wizard CSS -------------------------- */
 
 	.wizard-padding {
 		padding-bottom: 4em;

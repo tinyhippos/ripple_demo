@@ -23,6 +23,26 @@
 				_setNavBackAndHome();
 			},
 
+			"accelerometer.html": function(){
+				_setNavBackAndHome();
+
+				var inputX = jQuery("#accelerometer-x-axis"),
+					inputY = jQuery("#accelerometer-y-axis"),
+					inputZ = jQuery("#accelerometer-z-axis");
+
+				function updateAccelerometerInfo(accelerometerInfo) {
+					inputX.val(accelerometerInfo.xAxis);
+					inputY.val(accelerometerInfo.yAxis);
+					inputZ.val(accelerometerInfo.zAxis);
+				}
+
+				updateAccelerometerInfo(Widget.Device.DeviceStateInfo.AccelerometerInfo);
+
+				jQuery("#accelerometer-poll").bind("mousedown", function(){
+					updateAccelerometerInfo(Widget.Device.DeviceStateInfo.AccelerometerInfo);
+				});
+			},
+
 			"applications.html": function(){
 
 				var i,
