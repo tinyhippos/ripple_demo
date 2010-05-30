@@ -1,0 +1,20 @@
+This is a demo widget for The Ripple Emulator. The widget itself resides in /public and is by default configured for the JIL 1.2.x SDK & Emulator.
+
+It showcases various features within Ripple's environment and provides a quick introduction to Ripple and examples of platform API calls that it supports.
+
+Currently the demo widget focuses on JIL specific API calls but will be extended to demos for all supported platforms.
+
+
+** Licensed Under **
+
+The MIT License
+http://www.opensource.org/licenses/mit-license.php
+
+Copyright (c) 2010 all contributors:
+
+Dan Silivestru
+tinyHippos Inc.
+
+Brent Lintner
+tinyHippos Inc.
+
