@@ -1,0 +1,28 @@
+<div class="wizard-padding">
+	<h1>Save some stuff</h1>
+	<div id="persistenceFormContainer" class="centered-content">
+		<form id="persistenceForm" onsubmit="return false;">
+			<table id="persistenceTable">
+				<tr>
+					<td><label id="persistenceKeyLabel" for="persistenceKey">Key:</label></td>
+					<td><input id="persistenceKey" name="persistenceKey" type="text"></td>
+				</tr>
+				<tr>
+					<td><label id="persistenceValueLabel" for="persistenceValue">Value:</label></td>
+					<td><input id="persistenceValue" name="persistenceValue" type="text"> </td>
+				</tr>
+			</table>
+			<br/>
+			<button id="persistenceSaveButton">Save Preference</button><button id="persistenceDeleteButton">Delete</button>
+		</form>
+	</div>
+
+
+	<div id="persistenceResult" class="irrelevant info-popup">
+		<div>Have a look on your left at the "current preferences" to see what you saved or deleted</div>
+	</div>
+
+	<div class="epic-wizard">
+		<button id="eventButton" onmousedown="Demo.Routes.navigate('events.html');">Next - Fire Some Events</button>
+	</div>
+</div>
