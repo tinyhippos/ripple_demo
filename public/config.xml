@@ -20,7 +20,7 @@
 	<preference name="readWrite1" value="This is a read / write pref and we can change it" readonly="false"/>
 	<preference name="readWrite2" value="This is a read / write pref and we can change it" readonly="false"/>
 	<preference name="readWrote3" value="This is a read / write pref and we can change it" readonly="false"/>
-    <name>Demo Widget</name>
+    <name>Ripple Demo Widget</name>
     <description>The Ripple Emulator Demo Widget</description>
     <license  href="http://www.opensource.org/licenses/mit-license.php">MIT</license>
     <author  email="dan.silivestru@tinyhippos.com">Dan Silivestru and Brent Lintner</author>
