@@ -28,9 +28,9 @@
 	  }
 	}
 
-    @media all and (min-resolution: 250dpi) {
+    @media all and (min-resolution: 240dpi) {
 	  body {
-		font-size: 1em;
+		font-size: 1.5em;
 	  }
 	}
 
