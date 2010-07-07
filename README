@@ -1,4 +1,4 @@
-This is a demo widget for The Ripple Emulator. The widget itself resides in /public and is by default configured for the JIL 1.2.x SDK & Emulator.
+This is a demo widget for the Ripple Mobile Environment Emulator. The widget itself resides in /public and is by default configured for the JIL 1.2.x SDK & Emulator.
 
 It showcases various features within Ripple's environment and provides a quick introduction to Ripple and examples of platform API calls that it supports.
 
