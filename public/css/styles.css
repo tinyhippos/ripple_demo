@@ -251,3 +251,11 @@
 		bottom: .5em;
 		right: .5em;
 	}
+
+/* -------------------------- Form CSS -------------------------- */
+
+    .form-label {
+        float: left;
+        padding-top: .7em;
+        width: 5em;
+    }

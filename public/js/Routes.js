@@ -19,6 +19,39 @@
 
 			},
 
+            "audio.html": function(){
+                var audioPlayer = Widget.Multimedia.AudioPlayer,
+                    filePath = jQuery("#audio-file-url"),
+                    repeat = jQuery("#audio-repeat");
+
+                _setNavBackAndHome();
+
+                audioPlayer.onStateChange = function() {
+                    //update some fields here
+                };
+
+                jQuery("#audio-open").bind("mousedown", function() {
+                    audioPlayer.open(filePath.val());
+                });
+
+                jQuery("#audio-play").bind("mousedown", function() {
+                    audioPlayer.play(Number(repeat.val() || 0));
+                });
+
+                jQuery("#audio-pause").bind("mousedown", function() {
+                    audioPlayer.pause();
+                });
+
+                jQuery("#audio-resume").bind("mousedown", function() {
+                    audioPlayer.resume();
+                });
+
+                jQuery("#audio-stop").bind("mousedown", function() {
+                    audioPlayer.stop();
+                });
+
+            },
+
 			"platforms.html": function(){
 				_setNavBackAndHome();
 			},
