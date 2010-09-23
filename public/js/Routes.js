@@ -61,22 +61,50 @@
 
 				var inputX = jQuery("#accelerometer-x-axis"),
 					inputY = jQuery("#accelerometer-y-axis"),
-					inputZ = jQuery("#accelerometer-z-axis");
+					inputZ = jQuery("#accelerometer-z-axis"),
+                    shakeValue = 0;
 
-				function updateAccelerometerInfo(accelerometerInfo) {
-					inputX.val(accelerometerInfo.xAxis);
-					inputY.val(accelerometerInfo.yAxis);
-					inputZ.val(accelerometerInfo.zAxis);
-				}
+				function updateAccelerometerInfo() {
+					var accelerometerInfo = Widget.Device.DeviceStateInfo.AccelerometerInfo,
+                        myXaxis = accelerometerInfo.xAxis,
+                        myYaxis = accelerometerInfo.yAxis,
+                        myZaxis = accelerometerInfo.zAxis,
+                        newAccelerometerData = "";
 
-				updateAccelerometerInfo(Widget.Device.DeviceStateInfo.AccelerometerInfo);
+                    inputX.val(myXaxis);
+					inputY.val(myYaxis);
+					inputZ.val(myZaxis);
 
-				jQuery("#accelerometer-poll").bind("mousedown", function(){
-					updateAccelerometerInfo(Widget.Device.DeviceStateInfo.AccelerometerInfo);
-				});
+                    if (myXaxis > 10 || myXaxis < -10 || myYaxis > 10 || myYaxis < -10 || myZaxis > 10 || myZaxis < -10)
+                    {
+                        // Increase the value so less shaking is needed to reach a shaking detection
+                        shakeValue += 2;
+                    }
+                    else
+                    {
+                        if (shakeValue > 0)
+                        {
+                            shakeValue -= 1;
+                        }
+                    }
+
+                    newAccelerometerData += '<br>';
+                    if (shakeValue > 10)
+                    {
+                        newAccelerometerData += 'User is shaking? YES';
+                    }
+                    else
+                    {
+                        newAccelerometerData += 'User is shaking? NO';
+                    }
+                    jQuery("#accelerometer-shake-status").html(newAccelerometerData);
+
+                }
+
+                setInterval(updateAccelerometerInfo, 100);
 			},
 
-			"applications.html": function(){
+			"applications.html": function() {
 
 				var i,
 					appSelect = jQuery("#launchApplicationsSelect"),
@@ -252,7 +280,7 @@
 
 				xhr.onreadystatechange = function (){
 
-					if(this.readyState === 4){
+					if(this.readyState === 4) {
 						
 						try{
 
