@@ -215,7 +215,6 @@
                 };
 
                 Widget.Telephony.onCallRecordsFound = function(calls) {
-                    console.log(calls);
                     var table = jQuery("#telephonySearchResults");
 
                     if(calls.length > 0) {
