@@ -200,6 +200,61 @@
 
 			},
 
+            "telephony.html": function(){
+                _setNavBackAndHome();
+
+                Widget.Telephony.onCallEvent = function(callType, number) {
+                    jQuery("#eventType").text(callType);
+                    jQuery("#eventNumber").text(number);
+
+                    jQuery("#telephonyEvent").show('slow');
+
+                    setTimeout(function() {
+                        jQuery("#telephonyEvent").hide('slow');
+                    }, 5000);
+                };
+
+                Widget.Telephony.onCallRecordsFound = function(calls) {
+                    console.log(calls);
+                    var table = jQuery("#telephonySearchResults");
+
+                    if(calls.length > 0) {
+                        jQuery("#telephonyResult").show();
+                        table.empty();
+
+                        for(var i = 0; i < calls.length; i++) {
+                            table.append("<tr><td>{name}</td><td>{number}</td></tr>"
+                                 .replace("{name}", calls[i].callRecordName)
+                                 .replace("{number}", calls[i].callRecordAddress));
+                        }
+                    }
+                    else {
+                        jQuery("#telephonyResult").hide();
+                    }
+
+
+                }
+
+                jQuery("#telephonyCallButton").bind("click", function() {
+                    Widget.Telephony.initiateVoiceCall(jQuery("#telephonyNumber").val());
+                });
+
+                jQuery("#telephonySearchButton").bind("click", function() {
+                    var search = {};
+
+                    if(jQuery("#telephonyName").val()) {
+                        search.callRecordName = jQuery("#telephonyName").val();
+                    }
+
+                    if(jQuery("#telephonyNumber").val()) {
+                        search.callRecordAddress = jQuery("#telephonyNumber").val();
+                    }
+
+                    Widget.Telephony.findCallRecords(search);
+                });
+
+            },
+
 			"events.html": function() {
 
 				var message = " was fired and successfully captured!";

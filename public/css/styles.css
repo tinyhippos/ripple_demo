@@ -212,7 +212,14 @@
 
 /* -------------------------- Persistence View Loader -------------------------- */
 
-	#persistenceTable {
+	#formTable {
+		width: 70%;
+		margin: 0 auto;
+	}
+
+/* -------------------------- Telephony View Loader -------------------------- */
+
+	#telephonySearchResults {
 		width: 70%;
 		margin: 0 auto;
 	}
