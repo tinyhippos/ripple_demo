@@ -19,6 +19,39 @@
 
 			},
 
+            "video.html": function () {
+                var videoPlayer = Widget.Multimedia.VideoPlayer;
+
+                _setNavBackAndHome();
+
+                videoPlayer.setWindow(document.getElementById("video_container"));
+
+                videoPlayer.onStateChange = function (state) {
+                    //update some fields here
+                };
+
+                jQuery("#video-open").unbind().bind("mousedown", function () {
+                    videoPlayer.open('http://playground.html5rocks.com/samples/html5_misc/chrome_japan.ogv');
+                });
+
+                jQuery("#video-play").unbind().bind("mousedown", function () {
+                    videoPlayer.play(1);
+                });
+
+                jQuery("#video-pause").unbind().bind("mousedown", function () {
+                    videoPlayer.pause();
+                });
+
+                jQuery("#video-resume").unbind().bind("mousedown", function () {
+                    videoPlayer.resume();
+                });
+
+                jQuery("#video-stop").unbind().bind("mousedown", function () {
+                    videoPlayer.stop();
+                });
+
+            },
+
             "audio.html": function(){
                 var audioPlayer = Widget.Multimedia.AudioPlayer,
                     filePath = jQuery("#audio-file-url"),
@@ -26,7 +59,7 @@
 
                 _setNavBackAndHome();
 
-                audioPlayer.onStateChange = function() {
+                audioPlayer.onStateChange = function (state) {
                     //update some fields here
                 };
 
