@@ -42,7 +42,7 @@
                 });
 
                 jQuery("#camera-record").unbind().bind("mousedown", function () {
-                    camera.startVideoCapture("/virtual/videos/camera_" + imgNum + ".avi", false, 60, false);
+                    camera.startVideoCapture("/virtual/videos/camera_" + imgNum + ".ogv", false, 60, false);
                     imgNum++;
                 });
 
@@ -63,7 +63,7 @@
                 };
 
                 jQuery("#video-open").unbind().bind("mousedown", function () {
-                    videoPlayer.open('http://playground.html5rocks.com/samples/html5_misc/chrome_japan.ogv');
+                    videoPlayer.open('images/sample.ogv');
                 });
 
                 jQuery("#video-play").unbind().bind("mousedown", function () {
