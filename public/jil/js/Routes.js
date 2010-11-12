@@ -19,6 +19,38 @@
 
 			},
 
+            "camera.html": function () {
+                var camera = Widget.Multimedia.Camera,
+                    imgNum = 0;
+
+                _setNavBackAndHome();
+
+                camera.setWindow(document.getElementById("camera_container"));
+
+                camera.onCameraCaptured = function (file) {
+                    jQuery("#file").text(file);
+                    jQuery("#cameraEvent").show('slow');
+
+                    setTimeout(function () {
+                        jQuery("#cameraEvent").hide('slow');
+                    }, 5000);
+                };
+
+                jQuery("#camera-capture").unbind().bind("mousedown", function () {
+                    camera.captureImage("/virtual/photos/camera_" + imgNum + ".png");
+                    imgNum++;
+                });
+
+                jQuery("#camera-record").unbind().bind("mousedown", function () {
+                    camera.startVideoCapture("/virtual/videos/camera_" + imgNum + ".avi", false, 60, false);
+                    imgNum++;
+                });
+
+                jQuery("#camera-stop").unbind().bind("mousedown", function () {
+                    camera.stopVideoCapture();
+                });
+            },
+
             "video.html": function () {
                 var videoPlayer = Widget.Multimedia.VideoPlayer;
 
