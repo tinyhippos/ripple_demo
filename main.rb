@@ -2,11 +2,11 @@ require 'rubygems'
 require 'sinatra'
 
 get '/' do
-	redirect '/jil/index.html'
+	redirect '/wac/index.html'
 end
 
-get '/jil' do
-	redirect '/jil/index.html'
+get '/wac' do
+	redirect '/wac/index.html'
 end
 
 get '/phonegap' do
