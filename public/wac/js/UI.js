@@ -2,14 +2,18 @@
 (Demo.UI = function ($, JQuery){
 
 	function _setNav(el, text, view, params){
+        if (!el) {
+            return;
+        }
+        
 		if (text){
 			el.innerHTML = text;
 
 			el.setAttribute("onmousedown", "Demo.Routes.navigate(" + (view ? "'" + view + "'" : "") + (params ? ", ['" + params.join(",") +"']" : "") + ")");
 		}
 		else {
-			el.innerHTML = "";
-			el.setAttribute("onmousedown", "");
+            el.innerHTML = "";
+            el.setAttribute("onmousedown", "");
 		}
 	}
 
