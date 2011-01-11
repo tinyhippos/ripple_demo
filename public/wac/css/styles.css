@@ -210,6 +210,13 @@
     }
 
 
+/* -------------------------- global overrides -------------------------- */
+
+.forced_wrap {
+    word-break: break-all;
+}
+
+
 /* -------------------------- Persistence View Loader -------------------------- */
 
 	#formTable {
