@@ -100,7 +100,7 @@
                 });
 
                 jQuery("#audio-play").bind("mousedown", function() {
-                    audioPlayer.play(Number(repeat.val() || 0));
+                    audioPlayer.play(Number(repeat.val() || 1));
                 });
 
                 jQuery("#audio-pause").bind("mousedown", function() {
