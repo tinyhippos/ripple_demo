@@ -1,24 +1,28 @@
 var game = (function ($) {
 
-    var size = 48,
-        fieldSize,
-        topPosition = 160,
-        bottomPosition = 445,
-        leftPosition = 20,
-        rightPosition = 310,
-        screenSize = 280,
-    
-        _world = {
+    var _world = {
             field: {
                 hearts: [],
                 items: [],
-                traps: []
+                traps: [],
+                position: {
+                    top: 160,
+                    bottom: 445,
+                    left: 20,
+                    right: 310
+                },
+                size: 0,
+                bg: null,
+                element: null,
+                edge: null
             },
             hero: {
                 x: 0,
                 y: 0,
                 element: null,
-                HP: 5
+                HP: 5,
+                damageDur: 0,
+                speed: 18
             },
             state: {
                 level: 0,
@@ -26,42 +30,36 @@ var game = (function ($) {
                 scoreElement: null,
                 goal: 0,
                 goalCount: 0
+            },
+            config: {
+                spriteSize: 48,
+                screenSize: 280,
+                levelBg: ['', '#fff', '#b1d1e0', '#b0d4a0', '#d4b597', '#666']
             }
-        },
-    
-        min = 0,
-        max,
-    
-        colorArray = ['', '#fff', '#b1d1e0', '#b0d4a0', '#d4b597', '#666'],
-    
-        multiplier = 18,
-    
-        bg,
-        main,
-        edge,
-        damageDur = 0,
-
-        preventBehavior = function (e) { 
-            e.preventDefault();
         };
+    
+
+    function preventBehavior(e) { 
+        e.preventDefault();
+    }
         
     function updateUI() {
         var left, top; 
-        if (_world.hero.x > fieldSize / 2) {
-            left = Math.min(fieldSize - _world.hero.x - 280 - 120, -280);
+        if (_world.hero.x > _world.field.size / 2) {
+            left = Math.min(_world.field.size - _world.hero.x - 280 - 120, -280);
         }
-        else if (_world.hero.x < fieldSize / 2) {
+        else if (_world.hero.x < _world.field.size / 2) {
             left = Math.max(-_world.hero.x - 160, -280);
         }
         
-        if (_world.hero.y > fieldSize / 2) {
-            top = Math.min(fieldSize - _world.hero.y - 280 - 120, -280);
+        if (_world.hero.y > _world.field.size / 2) {
+            top = Math.min(_world.field.size - _world.hero.y - 280 - 120, -280);
         }
-        else if (_world.hero.y < fieldSize / 2) {
+        else if (_world.hero.y < _world.field.size / 2) {
             top = Math.max(-_world.hero.y - 140, -280);
         }
         
-        edge.style.backgroundPosition = left + 'px ' + top + 'px';
+        _world.field.edge.style.backgroundPosition = left + 'px ' + top + 'px';
         
         _world.state.scoreElement.innerHTML = _world.state.goal + '/' + _world.state.goalCount;
         
@@ -80,10 +78,10 @@ var game = (function ($) {
     }
 
     function adjustAlpha(target, cx, cy) {
-        var xmin = size / 2 - 7,
-            xmax = screenSize - size / 2 + 5,
-            ymin = size / 2,
-            ymax = screenSize - size / 2 + 5,
+        var xmin = _world.config.spriteSize / 2 - 7,
+            xmax = _world.config.screenSize - _world.config.spriteSize / 2 + 5,
+            ymin = _world.config.spriteSize / 2,
+            ymax = _world.config.screenSize - _world.config.spriteSize / 2 + 5,
             alpha = 1,
             dist = 18;
         
@@ -106,8 +104,8 @@ var game = (function ($) {
     }
     
     function getRandom() {
-        var test = fieldSize / 2 + screenSize / 2,
-            value = Math.random() * (fieldSize) + screenSize / 2;
+        var test = _world.field.size / 2 + _world.config.screenSize / 2,
+            value = Math.random() * (_world.field.size) + _world.config.screenSize / 2;
 
         if (value > test - 30 && value < test + 30) {
             return getRandom();
@@ -130,16 +128,15 @@ var game = (function ($) {
 
             element.className = className;
             element.id = pos.id;
-            main.appendChild(element);
+            _world.field.element.appendChild(element);
             dataArray[i] = pos;
         }
     }
 
     function generateLevel(level) {
-        fieldSize = level * 500 + 500;
-        max = fieldSize;
-        _world.hero.x = fieldSize / 2;
-        _world.hero.y = fieldSize / 2;
+        _world.field.size = level * 500 + 500;
+        _world.hero.x = _world.field.size / 2;
+        _world.hero.y = _world.field.size / 2;
         _world.state.goalCount = level * 10;
         
         var heartNum = 10,
@@ -152,7 +149,7 @@ var game = (function ($) {
         
         updateSprites();
         updateUI();
-        bg.style.backgroundColor = colorArray[level];
+        _world.field.bg.style.backgroundColor = _world.config.levelBg[level];
     }
     
     function checkCollision(target, cx, cy) {
@@ -177,17 +174,17 @@ var game = (function ($) {
                     navigator.notification.blink(4, 0xffffff);
                 }
             }
-            else if (type === 'tra' && damageDur === 0) {
+            else if (type === 'tra' && _world.hero.damageDur === 0) {
                 navigator.notification.vibrate(250);
-                damageDur = 20;
+                _world.hero.damageDur = 20;
                 _world.hero.HP--;
             }
         }
     }
 
     function updateCoordinates(target, x, y) {
-        target.style.left = (leftPosition + x - size / 2).toString() + 'px';
-        target.style.top = (topPosition + y - size / 2).toString() + 'px';
+        target.style.left = (_world.field.position.left + x - _world.config.spriteSize / 2).toString() + 'px';
+        target.style.top = (_world.field.position.top + y - _world.config.spriteSize / 2).toString() + 'px';
         adjustAlpha(target, x, y);
         checkCollision(target, x, y);
     }
@@ -203,7 +200,7 @@ var game = (function ($) {
     }
 
     function updateSprites() {
-        bg.style.backgroundPosition =  (-_world.hero.x + leftPosition).toString() + 'px ' + (-_world.hero.y + topPosition).toString() + 'px';
+        _world.field.bg.style.backgroundPosition =  (-_world.hero.x + _world.field.position.left).toString() + 'px ' + (-_world.hero.y + _world.field.position.top).toString() + 'px';
         updateMultipleSpriteCoordinates(_world.field.hearts);
         updateMultipleSpriteCoordinates(_world.field.traps);
         updateMultipleSpriteCoordinates(_world.field.items);
@@ -213,12 +210,12 @@ var game = (function ($) {
         init: function () {
             document.addEventListener("touchmove", preventBehavior, false);
             _world.hero.element = document.getElementById('hero');
-            bg = document.getElementById('container');
-            main = document.getElementById('actionLayer');
+            _world.field.bg = document.getElementById('container');
+            _world.field.element = document.getElementById('actionLayer');
             _world.state.scoreElement = document.getElementById('score');
-            edge = document.getElementById('edge');
-            _world.hero.element.style.left = (leftPosition + screenSize / 2 - size / 2).toString() + 'px';
-            _world.hero.element.style.top = (topPosition + screenSize / 2 - size / 2).toString() + 'px';
+            _world.field.edge = document.getElementById('edge');
+            _world.hero.element.style.left = (_world.field.position.left + _world.config.screenSize / 2 - _world.config.spriteSize / 2).toString() + 'px';
+            _world.hero.element.style.top = (_world.field.position.top + _world.config.screenSize / 2 - _world.config.spriteSize / 2).toString() + 'px';
             _world.state.level = 1;  
             
             generateLevel(_world.state.level);
@@ -235,20 +232,20 @@ var game = (function ($) {
 					a = Math.round(accel.x * 1000),
                     rad = Math.atan2(a, o);
                 
-                _world.hero.x += accel.x * multiplier;
-                _world.hero.y -= accel.y * multiplier;
+                _world.hero.x += accel.x * _world.hero.speed;
+                _world.hero.y -= accel.y * _world.hero.speed;
                             
-                if (_world.hero.y > max) {
-                    _world.hero.y = max;
+                if (_world.hero.y > _world.field.size) {
+                    _world.hero.y = _world.field.size;
                 }
-                if (_world.hero.y < min) {
-                    _world.hero.y = min;
+                if (_world.hero.y < 0) {
+                    _world.hero.y = 0;
                 }
-                if (_world.hero.x > max) {
-                    _world.hero.x = max;
+                if (_world.hero.x > _world.field.size) {
+                    _world.hero.x = _world.field.size;
                 }
-                if (_world.hero.x < min) {
-                    _world.hero.x = min;
+                if (_world.hero.x < 0) {
+                    _world.hero.x = 0;
                 }
                 
                 rad = (180 / Math.PI) * rad;
@@ -276,8 +273,8 @@ var game = (function ($) {
                 updateSprites();
                 updateUI();
                 
-                if (damageDur > 0) {
-                    damageDur--;
+                if (_world.hero.damageDur > 0) {
+                    _world.hero.damageDur--;
                 }
 	
             },
