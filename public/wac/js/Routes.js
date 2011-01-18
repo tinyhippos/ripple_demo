@@ -37,7 +37,7 @@
                 };
 
                 jQuery("#camera-capture").unbind().bind("mousedown", function () {
-                    camera.captureImage("/virtual/photos/camera_" + imgNum + ".png");
+                    camera.captureImage("/virtual/photos/camera_" + imgNum + ".png", false);
                     imgNum++;
                 });
 
