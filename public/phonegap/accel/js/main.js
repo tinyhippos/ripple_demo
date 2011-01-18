@@ -1,17 +1,33 @@
-var Game = (function ($) {
+var game = (function ($) {
 
     var size = 48,
         fieldSize,
-        level,
-        rad = 25,
         topPosition = 160,
         bottomPosition = 445,
         leftPosition = 20,
         rightPosition = 310,
         screenSize = 280,
     
-        y,
-        x,
+        _world = {
+            field: {
+                hearts: [],
+                items: [],
+                traps: []
+            },
+            hero: {
+                x: 0,
+                y: 0,
+                element: null,
+                HP: 5
+            },
+            state: {
+                level: 0,
+                gameOver: false,
+                scoreElement: null,
+                goal: 0,
+                goalCount: 0
+            }
+        },
     
         min = 0,
         max,
@@ -20,28 +36,10 @@ var Game = (function ($) {
     
         multiplier = 18,
     
-        hero,
-        heroHP = 5,
-    
         bg,
         main,
         edge,
         damageDur = 0,
-    
-        score,
-        goalCount,
-        goal = 0,
-    
-        heart = [],
-        heartData = [],
-    
-        item = [],
-        itemData = [],
-    
-        trap = [],
-        trapData = [],
-    
-        gameOver = false,
 
         preventBehavior = function (e) { 
             e.preventDefault();
@@ -49,35 +47,35 @@ var Game = (function ($) {
         
     function updateUI() {
         var left, top; 
-        if (x > fieldSize / 2) {
-            left = Math.min(fieldSize - x - 280 - 120, -280);
+        if (_world.hero.x > fieldSize / 2) {
+            left = Math.min(fieldSize - _world.hero.x - 280 - 120, -280);
         }
-        else if (x < fieldSize / 2) {
-            left = Math.max(-x - 160, -280);
+        else if (_world.hero.x < fieldSize / 2) {
+            left = Math.max(-_world.hero.x - 160, -280);
         }
         
-        if (y > fieldSize / 2) {
-            top = Math.min(fieldSize - y - 280 - 120, -280);
+        if (_world.hero.y > fieldSize / 2) {
+            top = Math.min(fieldSize - _world.hero.y - 280 - 120, -280);
         }
-        else if (y < fieldSize / 2) {
-            top = Math.max(-y - 140, -280);
+        else if (_world.hero.y < fieldSize / 2) {
+            top = Math.max(-_world.hero.y - 140, -280);
         }
         
         edge.style.backgroundPosition = left + 'px ' + top + 'px';
         
-        score.innerHTML = goal + '/' + goalCount;
+        _world.state.scoreElement.innerHTML = _world.state.goal + '/' + _world.state.goalCount;
         
-        heroHP = Math.min(heroHP, 5);
+        _world.hero.HP = Math.min(_world.hero.HP, 5);
         
-        document.getElementById('hp1').style.opacity = heroHP;
-        document.getElementById('hp2').style.opacity = heroHP - 1;
-        document.getElementById('hp3').style.opacity = heroHP - 2;
-        document.getElementById('hp4').style.opacity = heroHP - 3;
-        document.getElementById('hp5').style.opacity = heroHP - 4;        
+        document.getElementById('hp1').style.opacity = _world.hero.HP;
+        document.getElementById('hp2').style.opacity = _world.hero.HP - 1;
+        document.getElementById('hp3').style.opacity = _world.hero.HP - 2;
+        document.getElementById('hp4').style.opacity = _world.hero.HP - 3;
+        document.getElementById('hp5').style.opacity = _world.hero.HP - 4;        
         
-        if (heroHP <= 0) {
+        if (_world.hero.HP <= 0) {
             document.getElementById('info').innerHTML = 'GAMEOVER'; 
-            gameOver = true;
+            _world.state.gameOver = true;
         }
     }
 
@@ -119,37 +117,38 @@ var Game = (function ($) {
         }
     }
 
-    function randomPlacement(className, array, dataArray, len) {
-        var i, element, x, y, id;
+    function randomPlacement(className, dataArray, len) {
+        var i, element, pos;
 
         for (i = 0; i < len; i++) {
             element = document.createElement('div');
-            x = getRandom();
-            y = getRandom();
-            id =  className + i.toString();
+            pos = {
+                x: getRandom(),
+                y: getRandom(),
+                id:  className + i.toString()
+            };
 
             element.className = className;
-            element.id = id;
+            element.id = pos.id;
             main.appendChild(element);
-            array[i] = id;
-            dataArray[i] = [x, y];
+            dataArray[i] = pos;
         }
     }
 
     function generateLevel(level) {
         fieldSize = level * 500 + 500;
         max = fieldSize;
-        x = fieldSize / 2;
-        y = fieldSize / 2;
-        goalCount = level * 10;
+        _world.hero.x = fieldSize / 2;
+        _world.hero.y = fieldSize / 2;
+        _world.state.goalCount = level * 10;
         
         var heartNum = 10,
             trapNum = 5 + 30 * level + 20 * (level - 1),
             itemNum = 15 + 10 * level;
         
-        randomPlacement('heart', heart, heartData, heartNum);
-        randomPlacement('trap', trap, trapData, trapNum);
-        randomPlacement('item', item, itemData, itemNum);
+        randomPlacement('heart', _world.field.hearts, heartNum);
+        randomPlacement('trap', _world.field.traps, trapNum);
+        randomPlacement('item', _world.field.items, itemNum);
         
         updateSprites();
         updateUI();
@@ -165,23 +164,23 @@ var Game = (function ($) {
             cx < centerX + 30 && cy > centerY - 30 && cy < centerY + 30) {
             
             if (type === 'hea') {
-                heartData[parseInt(target.id.slice(5, target.id.length), 10)][0] = -1000;
-                heroHP++;
+                _world.field.hearts[parseInt(target.id.slice(5, target.id.length), 10)].x = -1000;
+                _world.hero.HP++;
             }
             else if (type === 'ite') {
-                itemData[parseInt(target.id.slice(4, target.id.length), 10)][0] = -1000;
-                goal++;
-                if (goal >= goalCount) {   
-                    level++;
-                    generateLevel(level);
-                    goal = 0;
+                _world.field.items[parseInt(target.id.slice(4, target.id.length), 10)].x = -1000;
+                _world.state.goal++;
+                if (_world.state.goal >= _world.state.goalCount) {   
+                    _world.state.level++;
+                    generateLevel(_world.state.level);
+                    _world.state.goal = 0;
                     navigator.notification.blink(4, 0xffffff);
                 }
             }
             else if (type === 'tra' && damageDur === 0) {
                 navigator.notification.vibrate(250);
                 damageDur = 20;
-                heroHP--;
+                _world.hero.HP--;
             }
         }
     }
@@ -193,44 +192,42 @@ var Game = (function ($) {
         checkCollision(target, x, y);
     }
     
-    function updateMultipleSpriteCoordinates(array, dataArray) {
-        var i, id, element, cx, cy;
+    function updateMultipleSpriteCoordinates(sprites) {
+        var i, sprite, element;
 
-        for (i = 0; i < array.length; i++) {
-            id = array[i];
-            element = document.getElementById(id);
-            cx = dataArray[i][0];
-            cy = dataArray[i][1];
-            updateCoordinates(element, (-x + cx), (-y + cy));
+        for (i = 0; i < sprites.length; i++) {
+            sprite = sprites[i];
+            element = document.getElementById(sprite.id);
+            updateCoordinates(element, (-_world.hero.x + sprite.x), (-_world.hero.y + sprite.y));
         }
     }
 
     function updateSprites() {
-        bg.style.backgroundPosition =  (-x + leftPosition).toString() + 'px ' + (-y + topPosition).toString() + 'px';
-        updateMultipleSpriteCoordinates(heart, heartData);
-        updateMultipleSpriteCoordinates(trap, trapData);
-        updateMultipleSpriteCoordinates(item, itemData);
+        bg.style.backgroundPosition =  (-_world.hero.x + leftPosition).toString() + 'px ' + (-_world.hero.y + topPosition).toString() + 'px';
+        updateMultipleSpriteCoordinates(_world.field.hearts);
+        updateMultipleSpriteCoordinates(_world.field.traps);
+        updateMultipleSpriteCoordinates(_world.field.items);
     }
         
     return {
         init: function () {
             document.addEventListener("touchmove", preventBehavior, false);
-            hero = document.getElementById('hero');
+            _world.hero.element = document.getElementById('hero');
             bg = document.getElementById('container');
             main = document.getElementById('actionLayer');
-            score = document.getElementById('score');
+            _world.state.scoreElement = document.getElementById('score');
             edge = document.getElementById('edge');
-            hero.style.left = (leftPosition + screenSize / 2 - size / 2).toString() + 'px';
-            hero.style.top = (topPosition + screenSize / 2 - size / 2).toString() + 'px';
-            level = 1;  
+            _world.hero.element.style.left = (leftPosition + screenSize / 2 - size / 2).toString() + 'px';
+            _world.hero.element.style.top = (topPosition + screenSize / 2 - size / 2).toString() + 'px';
+            _world.state.level = 1;  
             
-            generateLevel(level);
+            generateLevel(_world.state.level);
         },
 
         watchAccel: function () {
             var suc = function (accel) {
             
-                if (gameOver === true) {
+                if (_world.state.gameOver) {
                     return;
                 }
 
@@ -238,41 +235,41 @@ var Game = (function ($) {
 					a = Math.round(accel.x * 1000),
                     rad = Math.atan2(a, o);
                 
-                x += accel.x * multiplier;
-                y -= accel.y * multiplier;
+                _world.hero.x += accel.x * multiplier;
+                _world.hero.y -= accel.y * multiplier;
                             
-                if (y > max) {
-                    y = max;
+                if (_world.hero.y > max) {
+                    _world.hero.y = max;
                 }
-                if (y < min) {
-                    y = min;
+                if (_world.hero.y < min) {
+                    _world.hero.y = min;
                 }
-                if (x > max) {
-                    x = max;
+                if (_world.hero.x > max) {
+                    _world.hero.x = max;
                 }
-                if (x < min) {
-                    x = min;
+                if (_world.hero.x < min) {
+                    _world.hero.x = min;
                 }
                 
                 rad = (180 / Math.PI) * rad;
                 
                 if (rad < 67.5 && rad >= 0 || rad > -67.5 && rad < 0) {
-                    hero.className = 'heroB';
+                    _world.hero.element.className = 'heroB';
                 }
                 else if (rad >= 67.5 && rad < 112.5) {
-                    hero.className = 'heroR';
+                    _world.hero.element.className = 'heroR';
                 }
                 else if (rad < -67.5 && rad > -112.5) {
-                    hero.className = 'heroL';
+                    _world.hero.element.className = 'heroL';
                 }
                 else if (rad >= 112.5 && rad < 157.5) {
-                    hero.className = 'heroFR';
+                    _world.hero.element.className = 'heroFR';
                 }
                 else if (rad <= -112.5 && rad > -157.5) {
-                    hero.className = 'heroFL';
+                    _world.hero.element.className = 'heroFL';
                 }
                 else {
-                    hero.className = 'heroF';
+                    _world.hero.element.className = 'heroF';
                 }
                 
                 
