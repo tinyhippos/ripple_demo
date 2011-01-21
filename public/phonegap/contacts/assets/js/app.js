@@ -10,7 +10,8 @@ run(function () {
     // a little inline controller
     when('#welcome');
     when('#contacts', function () {
-        var node = document.getElementById("contact_list");
+        var node = document.getElementById("contact_list"),
+            findOptions = new ContactFindOptions();
 
         function append(name) {
             var d = document.createElement("div");
@@ -19,18 +20,23 @@ run(function () {
             node.appendChild(d);
         }
 
+        // set some filters
+        findOptions.limit = 5;
+
         // get some contacts!
-        navigator.service.contacts.find(["name", "displayName"], function (list) {
-            var i;
-            if (list.length > 0) {
-                for (i = 0; i < list.length; i++) {
-                    append(list[i].name.formatted);
+        navigator.service.contacts.find(["name"], function (contacts) {
+                var i;
+                if (contacts.length > 0) {
+                    node.innerHTML = "";
+                    append(contacts.length);
+                    for (i = 0; i < contacts.length; i++) {
+                        append(contacts[i].name.formatted);
+                    }
+                } else {
+                    node.innerHTML = "No Contacts";
                 }
-            } else {
-                node.html("No Contacts");
-            }
-        }, function (error) {
-            node.html(error.message);
-        });
+        }, function (e) {
+            node.innerHTML = typeof e === "object" && e.message ? e.message : e;
+        }, findOptions);
     });
 });

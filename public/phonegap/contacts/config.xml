@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "com.phonegap.getting.started"
+	id		= "com.phonegap.getting.started.contacts"
 	version 	= "1.0.0">
 
 	<name>PhoneGap: Getting Started With Contacts</name>
@@ -16,7 +16,7 @@
 	</author>
 
 	<gap:platforms>
-		<gap:platform name="android" minVersion="2.1" />
+		<gap:platform name="android" minVersion="2.2" />
 		<gap:platform name="webos" />
 		<gap:platform name="symbian.wrt" />
 		<gap:platform name="blackberry" project="widgets"/>
