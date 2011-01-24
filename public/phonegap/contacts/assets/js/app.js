@@ -25,16 +25,21 @@ run(function () {
 
         // get some contacts!
         navigator.service.contacts.find(["name"], function (contacts) {
+            try {
                 var i;
                 if (contacts.length > 0) {
                     node.innerHTML = "";
-                    append(contacts.length);
+                    alert("length: " + contacts.length);
                     for (i = 0; i < contacts.length; i++) {
+                        alert(contacts[i].name);
                         append(contacts[i].name.formatted);
                     }
                 } else {
                     node.innerHTML = "No Contacts";
                 }
+            } catch (e) {
+                alert(e);
+            }
         }, function (e) {
             node.innerHTML = typeof e === "object" && e.message ? e.message : e;
         }, findOptions);
