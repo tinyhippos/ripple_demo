@@ -19,6 +19,7 @@ var run = function(application) {
     });
 }
 
+// keep track of registered selectors (for use in display)
 , routes = []
 
 // reg a click to [id]_button, displays id (if it exists) and executes callback (if it exists)

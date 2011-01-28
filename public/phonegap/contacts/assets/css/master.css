@@ -45,27 +45,28 @@ body {
 }
 
 .app_textbox, input {
-    font-size: 18px;
-    font-weight: 200;
-    text-shadow: 0 -1px 0 #eee;
-    height: 40px;
-    line-height: 40px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
-    display: inline-block;
-    padding: 0 20px;
-    margin-bottom: 20px;
-    background: #ccc;
-    background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
-    background: linear-gradient(#fff, #ccc 70%);
-    color: #444;
-    border: 1px solid #C97917;
+  font-size: 18px;
+  font-weight: 200;
+  text-shadow: 0 -1px 0 #eee;
+  height: 40px;
+  width: 200px;
+  margin: 0 auto 20px auto;
+  line-height: 40px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0 20px;
+  background: #ccc;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
+  background: linear-gradient(#fff, #ccc 70%);
+  color: #444;
+  border: 1px solid #C97917;
 }
 
 .app_textbox:focus, input:focus {
-    background: #FFFFFF;
-    border: 1px solid #F7941E;
-    outline: none;
+  background: #FFFFFF;
+  border: 1px solid #F7941E;
+  outline: none;
 }
 
 #back_button {
@@ -84,20 +85,26 @@ body {
   display: block;  
 }
 
-#contacts {
+/* contacts specific styles */
+#contact_list, .contact_info, .contacts_search {
+  font-size: 18px;
 }
 
-    #contact_list, .contact_info {
-        margin-bottom: 2em;
-    } 
-
-    .contacts_search {
-        margin-bottom: 20px;
-    }
-
-    .contact_list_item {
-        color: #444;
-        text-shadow: 0 1px 0 #fff;
-        padding: 0.75em 0;
-    }
-
+.contact_list_item {
+  color: #444;
+  text-shadow: 0 1px 0 #fff;
+  font-weight: 200;
+  text-shadow: 0 -1px 0 #eee;
+  width: 200px;
+  margin: 0 auto 20px auto;
+  line-height: 40px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0 20px;
+  background: #ccc;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
+  background: linear-gradient(#fff, #ccc 70%);
+  color: #444;
+  border: 1px solid #C97917;
+}
