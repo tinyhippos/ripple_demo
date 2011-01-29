@@ -1,9 +1,21 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 body {
   background: #fff;
   background: -webkit-gradient(linear, 100% 0%, 0% 0%, from(#C8C8C8), color-stop(0.47, white), to(#C8C8C8));
   margin: 0;
   font: 18px Helvetica;
   text-align: center;
+}
+
+p {
+  margin: 0 0 20px 0;
 }
 
 #title_bar {
@@ -69,10 +81,6 @@ body {
   outline: none;
 }
 
-#back_button {
-  background: grey;
-}
- 
 .view {
   padding: 35px;
 	/*  only one view is displayed at a time
@@ -88,6 +96,10 @@ body {
 /* contacts specific styles */
 #contact_list, .contact_info, .contacts_search {
   font-size: 18px;
+}
+
+#contact_notice {
+  display: none;
 }
 
 .contact_list_item {
