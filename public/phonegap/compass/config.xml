@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns		= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		= "com.phonegap.getting.started.contacts"
+	version 	= "1.0.0">
+
+    <name>PhoneGap Compass</name>
+
+	<description>
+        An example of working with the PhoneGap Compass module.
+	</description>
+
+    <author href="http://github.com/brentlintner"
+		email="brent.lintner@gmail.com">
+        Brent Lintner
+	</author>
+
+	<gap:platforms>
+		<gap:platform name="android" minVersion="2.1" />
+		<gap:platform name="webos" />
+		<gap:platform name="symbian.wrt" />
+		<gap:platform name="blackberry" project="widgets"/>
+	</gap:platforms>
+
+	<icon src="icon.png" gap:role="default" />
+
+	<!-- sample preference specification -->
+	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
+</widget>

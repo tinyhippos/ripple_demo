@@ -1,0 +1,122 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  background: #fff;
+  background: -webkit-gradient(linear, 100% 0%, 0% 0%, from(#C8C8C8), color-stop(0.47, white), to(#C8C8C8));
+  margin: 0;
+  font: 18px Helvetica;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px 0;
+}
+
+#title_bar {
+  /* need a position set to something for z-index to take effect */
+  position: relative;
+  z-index: 1;
+  background: #ccc;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
+  background: linear-gradient(#fff, #ccc 70%);
+  color: #444;
+  text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #999;
+  height: 44px;
+  line-height: 44px;
+  padding: 0;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.app_button, button {
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  width: 200px;
+  background:#F7941E;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#F7941E), to(#D37F18));
+  background: linear-gradient(#F7941E, #D37F18 70%);
+  border: 1px solid #C97917;
+  font-size: 18px;
+  font-weight: 200;
+  text-shadow: 0 -1px 0 #7E4B0D;
+  height: 40px;
+  line-height: 40px;
+  color:#fff;
+  text-align: center;
+}
+
+.app_textbox, input {
+  font-size: 18px;
+  font-weight: 200;
+  text-shadow: 0 -1px 0 #eee;
+  height: 40px;
+  width: 200px;
+  margin: 0 auto 20px auto;
+  line-height: 40px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0 20px;
+  background: #ccc;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
+  background: linear-gradient(#fff, #ccc 70%);
+  color: #444;
+  border: 1px solid #C97917;
+}
+
+.app_textbox:focus, input:focus {
+  background: #FFFFFF;
+  border: 1px solid #F7941E;
+  outline: none;
+}
+
+.view {
+  padding: 35px;
+	/*  only one view is displayed at a time
+	    so we'll set the views to default to be un-displayed
+	    and then override this based on the element id */
+	display: none;
+}
+/* our three views */
+#welcome {
+  display: block;  
+}
+
+/* contacts specific styles */
+#contact_list, .contact_info, .contacts_search {
+  font-size: 18px;
+}
+
+#contact_notice {
+  display: none;
+}
+
+.contact_list_item {
+  color: #444;
+  text-shadow: 0 1px 0 #fff;
+  font-weight: 200;
+  text-shadow: 0 -1px 0 #eee;
+  width: 200px;
+  margin: 0 auto 20px auto;
+  line-height: 40px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0 20px;
+  background: #ccc;
+  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
+  background: linear-gradient(#fff, #ccc 70%);
+  color: #444;
+  border: 1px solid #C97917;
+}
