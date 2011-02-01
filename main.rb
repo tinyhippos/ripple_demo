@@ -10,7 +10,7 @@ get '/wac' do
 end
 
 get '/phonegap/contacts*' do
-	redirect '/phonegap/accel/index.html'
+	redirect '/phonegap/contacts/index.html'
 end
 
 get '/phonegap/accel*' do
