@@ -4,7 +4,7 @@
 	id		= "com.phonegap.getting.started.contacts"
 	version 	= "1.0.0">
 
-	<name>PhoneGap Getting Started With Contacts</name>
+    <name>PhoneGap Contacts</name>
 
 	<description>
         An example of working with the PhoneGap Contacts module.
