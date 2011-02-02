@@ -88,8 +88,8 @@ p {
 	    and then override this based on the element id */
 	display: none;
 }
-/* our three views */
-#welcome {
+
+#compass {
   display: block;  
 }
 
