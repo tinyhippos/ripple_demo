@@ -1,6 +1,6 @@
-A PhoneGap Training app for the Contacts module.
+A PhoneGap Training app for the Compass module.
 
-    http://docs.phonegap.com/phonegap_contacts_contacts.md.html
+    http://docs.phonegap.com/phonegap_compass_compass.md.html
 
 Based on the PhoneGap-Start training app source
 
