@@ -28,17 +28,28 @@ function headingToText(h) {
 }
 
 x$(document).on("deviceready", function () {
-    var view = x$("#compass .info");
+    var view = x$("#compass .container"),
+        lastHeading;
 
     function success(heading) {
-        view.html(headingToText(heading));
+        var needle = x$("#compass .needle"),
+            info = x$("#compass .heading");
+
+        if (lastHeading === heading) return;
+        lastHeading = heading;
+
+        needle.css({
+            "-webkit-transform": "rotate(-" + heading + "deg)",
+            "transform": "rotate(-" + heading + "deg)"
+        });
+
+        info.html(heading + "&#xb0; (" + headingToText(heading) + ")");
     }
 
     function fail() {
-        console.log("test");
         view.html("Error!");
     }
 
     navigator.compass.getCurrentHeading(success, fail);
-    navigator.compass.watchHeading(success, fail, {frequency: 200});
+    navigator.compass.watchHeading(success, fail, {frequency: 100});
 });

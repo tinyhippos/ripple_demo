@@ -82,23 +82,40 @@ p {
 }
 
 .view {
-  padding: 35px;
 	/*  only one view is displayed at a time
 	    so we'll set the views to default to be un-displayed
 	    and then override this based on the element id */
-	display: none;
+  display: none;
 }
 
 #compass {
   display: block;  
 }
 
-.info {
-  font-size: 3em;
-  margin: 40px auto 0 auto;
-  background: #ccc;
-  background: -webkit-gradient(linear, 0 0, 0 70%, from(#fff), to(#ccc));
-  background: linear-gradient(#fff, #ccc 70%);
-  color: #444;
-  text-shadow: 0 1px 0 #fff;
-}
+  .container {
+    position: relative;
+    margin: 0 auto;
+    width: 283px;
+    height: 283px;
+  }
+  
+  .container img {
+    width: auto;
+    height: auto;
+  }
+
+    .heading {
+      position: relative;
+      font-size: 24px;
+      font-weight: 200;
+      text-shadow: 0 -1px 0 #eee;
+      margin: 40px auto 20px auto;
+      color: #444;
+    }
+
+    .compass {}
+
+    .needle {
+      position: absolute;
+    }
+
