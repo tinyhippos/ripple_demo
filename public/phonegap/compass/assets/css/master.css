@@ -96,7 +96,7 @@ p {
     position: relative;
     margin: 0 auto;
     width: 283px;
-    height: 283px;
+    overflow: hidden;
   }
   
   .container img {
