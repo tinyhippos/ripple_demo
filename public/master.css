@@ -1,0 +1,21 @@
+body, html {
+  margin: 1em;
+  padding: 0;
+  border: 0;
+  font: 18px Helvetica;
+  background: #eeeeee;
+}
+
+h1, h2 {
+  font-size: 20px;
+  font-style: italic;
+}
+
+li a {
+  font-size: 16px;
+  color: #1e1e1e;
+}
+
+li a:hover {
+  color: #666666;
+}

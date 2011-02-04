@@ -1,7 +1,7 @@
-tinyHippos Demo Applications
+Ripple Demo Apps
 ---
 
-A collection of demo applications for each platform that ripple emulates
+A collection of demo applications for each platform that ripple emulates.
 
 start with:
 
