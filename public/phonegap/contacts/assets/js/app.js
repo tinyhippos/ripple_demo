@@ -18,7 +18,7 @@ run(function () {
         options.limit = 15;
         options.multiple = true;
 
-        navigator.service.contacts.find(fields, function (foundContacts) {
+        navigator.contacts.find(fields, function (foundContacts) {
             var i, 
                 contactList = x$("#contact_list");
 
